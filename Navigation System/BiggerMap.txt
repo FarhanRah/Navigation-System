@@ -1,0 +1,36 @@
+Surrey					Delta		    		3
+Surrey			
+		New Westminster			3
+Surrey					Port Coquitlam			4
+Delta					Richmond				4
+
+
+Delta		
+			Vancouver				
+8
+Delta					New Westminster			4
+
+New Westminster			Richmond				6
+New Westminster			Burnaby					2
+
+
+
+New Westminster			Port Coquitlam			8
+Port Coquitlam			Burnaby					5
+Port Coquitlam			Coquitlam				2
+Richmond				UBC						5
+
+Richmond				Vancouver				4
+Richmond				Burnaby					5
+Burnaby					Vancouver				5
+Burnaby					Coquitlam				3
+
+
+Coquitlam				Vancouver				7
+UBC						North Vancouver			6
+UBC						Vancouver				3
+North Vancouver			Vancouver				2
+
+
+
+
