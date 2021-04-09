@@ -6,33 +6,33 @@
 
 using namespace std;
 
-class CMPT135_String
+class Custom_String
 {
 private:
-	char *buffer; //The dynamic array to store the printable characters and a null terminating character 
+	char *buffer;
 public:
-	CMPT135_String(); //The buffer is initialized to nullptr value
-	CMPT135_String(const char *); //A non-default constructor with a null terminated char array argument
-	CMPT135_String(const CMPT135_String &); //Deep copy constructor
-	~CMPT135_String();  //Delete any heap memory and assign buffer nullptr value
-	CMPT135_String& operator = (const CMPT135_String &); //Memory cleanup and deep copy assignment
-	int length() const; //Return the number of printable characters. Return zero if buffer is nullptr
-	bool empty() const;  //Return true if length is 0. Otherwise return false
-	char& operator [] (const int &) const;  //Assert index and then return the char at the index
-	CMPT135_String operator + (const char &) const; //See assignment 1
-	CMPT135_String& operator += (const char &); //See assignment 1
-	bool operator == (const CMPT135_String &) const; //See assignment 1
-	bool operator != (const CMPT135_String &) const; //See assignment 1
-	friend istream& operator >> (istream &, CMPT135_String &); //Implemented for you
-	friend ostream& operator << (ostream &, const CMPT135_String &); //Implemented for you
+	Custom_String();
+	Custom_String(const char *);
+	Custom_String(const Custom_String &);
+	~Custom_String();
+	Custom_String& operator = (const Custom_String &);
+	int length() const;
+	bool empty() const;
+	char& operator [] (const int &) const;
+	Custom_String operator + (const char &) const;
+	Custom_String& operator += (const char &);
+	bool operator == (const Custom_String &) const;
+	bool operator != (const Custom_String &) const;
+	friend istream& operator >> (istream &, Custom_String &);
+	friend ostream& operator << (ostream &, const Custom_String &);
 };
 
-CMPT135_String::CMPT135_String()
+Custom_String::Custom_String()
 {
 	buffer = nullptr;
 }
 
-CMPT135_String::CMPT135_String(const char *cStr)
+Custom_String::Custom_String(const char *cStr)
 {
 	int len;
 
@@ -56,7 +56,7 @@ CMPT135_String::CMPT135_String(const char *cStr)
 	}
 }
 
-CMPT135_String::CMPT135_String(const CMPT135_String &s)
+Custom_String::Custom_String(const Custom_String &s)
 {
 	int length = s.length();
 
@@ -71,7 +71,7 @@ CMPT135_String::CMPT135_String(const CMPT135_String &s)
 	}
 }
 
-CMPT135_String::~CMPT135_String()
+Custom_String::~Custom_String()
 {
 	if (buffer != nullptr)
 	{
@@ -80,14 +80,14 @@ CMPT135_String::~CMPT135_String()
 	}
 }
 
-CMPT135_String& CMPT135_String::operator = (const CMPT135_String &s)
+Custom_String& Custom_String::operator = (const Custom_String &s)
 {
 	// Check for self assignment, for example s = s
 	if (this == &s)
 		return *this;
 
 	// Delete the left hand side object's memory
-	this->~CMPT135_String();
+	this->~Custom_String();
 
 	int length = s.length();
 
@@ -104,7 +104,7 @@ CMPT135_String& CMPT135_String::operator = (const CMPT135_String &s)
 	return *this;
 }
 
-int CMPT135_String::length() const
+int Custom_String::length() const
 {
 	if (buffer == nullptr)
 		return 0;
@@ -117,7 +117,7 @@ int CMPT135_String::length() const
 	}
 }
 
-bool CMPT135_String::empty() const
+bool Custom_String::empty() const
 {
 	if (this->length() == 0)
 		return true;
@@ -125,17 +125,17 @@ bool CMPT135_String::empty() const
 	return false;
 }
 
-char& CMPT135_String::operator [] (const int &index) const
+char& Custom_String::operator [] (const int &index) const
 {
 	assert(index >= 0 && index < this->length());
 	
 	return buffer[index];
 }
 
-CMPT135_String CMPT135_String::operator + (const char &c) const
+Custom_String Custom_String::operator + (const char &c) const
 {
 	int length = this->length();
-	CMPT135_String s1;
+	Custom_String s1;
 	s1.buffer = new char[length + 2];
 
 	for (int i = 0; i < length; i++)
@@ -147,7 +147,7 @@ CMPT135_String CMPT135_String::operator + (const char &c) const
 	return s1;
 }
 
-CMPT135_String& CMPT135_String::operator += (const char &c)
+Custom_String& Custom_String::operator += (const char &c)
 {
 	int length = this->length();
 
@@ -168,7 +168,7 @@ CMPT135_String& CMPT135_String::operator += (const char &c)
 	return *this;
 }
 
-bool CMPT135_String::operator == (const CMPT135_String &s) const
+bool Custom_String::operator == (const Custom_String &s) const
 {
 	int len = this->length();
 	if (len != s.length())
@@ -184,7 +184,7 @@ bool CMPT135_String::operator == (const CMPT135_String &s) const
 	}
 }
 
-bool CMPT135_String::operator != (const CMPT135_String &s) const
+bool Custom_String::operator != (const Custom_String &s) const
 {
 	int len = this->length();
 	if (len != s.length())
@@ -201,7 +201,7 @@ bool CMPT135_String::operator != (const CMPT135_String &s) const
 }
 
 
-istream& operator >> (istream &in, CMPT135_String &s)
+istream& operator >> (istream &in, Custom_String &s)
 {
 	//This function reads characters input from a keyboard or a file until either a TAB, EOL, or EOF is 
 	//reached. The function ignores any leading or trailing spaces. It is designed to be able to read a 
@@ -213,7 +213,7 @@ istream& operator >> (istream &in, CMPT135_String &s)
 	#define	EOL	'\n'
 
 	//Delete the old value of s
-	s.~CMPT135_String();
+	s.~Custom_String();
 
 	//Skip leading spaces, tabs, and empty lines
 	char ch;
@@ -247,7 +247,7 @@ istream& operator >> (istream &in, CMPT135_String &s)
 			break;
 		trailingSpacesCount++;
 	}
-	CMPT135_String temp;
+	Custom_String temp;
 	for (int i = 0; i < s.length()-trailingSpacesCount; i++)
 		temp += s[i];
 	s = temp;
@@ -255,7 +255,7 @@ istream& operator >> (istream &in, CMPT135_String &s)
 	return in;
 }
 
-ostream& operator << (ostream &out, const CMPT135_String &s)
+ostream& operator << (ostream &out, const Custom_String &s)
 {
 	for (int i = 0; i < s.length(); i++)
 		out << s[i];
@@ -268,38 +268,32 @@ template <class T>
 class SmarterArray
 {
 private:
-	T *A; //The dynamic array to store the elements
-	int size; //The number of elements in the array
+	T *A;
+	int size;
 
 public:
 	//Constructors
-	SmarterArray(); //Implemented for you
-	SmarterArray(const T*, const int&); //Deep copy of the argument dynamic array with the given size
-	SmarterArray(const SmarterArray<T>&); //Deep copy of the argument
+	SmarterArray();
+	SmarterArray(const T*, const int&);
+	SmarterArray(const SmarterArray<T>&);
 
 	//Assignment operator
-	SmarterArray<T>& operator = (const SmarterArray<T>&); //Memory cleanup and deep copy of the argument
+	SmarterArray<T>& operator = (const SmarterArray<T>&);
 
 	//Destructor
-	~SmarterArray(); //Memory cleanup and resetting the size
+	~SmarterArray();
 
 	//Getters, Setters, operators and other functions
-	int getSize() const; //Return the number of elements in the container
-	T& operator[](const int&) const; //Assert index and then return the element at the given index
-	int find(const T&) const; //Return the index of the first element that is == to the argument. 
-								//Return -1 if not found.
-	void append(const T&);  //Store the argument value after the last element
-	void insert(const int &, const T&); //Assert the integer argument index >= 0 && index <= size and then
-										//Insert the T type argument into the calling object at the index.
-										//If the index argument is equal to size, then perform append
-	bool remove(const int&); //If the index is valid, then remove the element at the index argument
-							//from the calling object and return true. Otherwise do nothing and return 
-							//false. Do not assert the index argument.
-	bool operator == (const SmarterArray<T>&) const; //Return true if sizes are equal and elements at the
-														//same indexes are equal. Otherwise return false
+	int getSize() const;
+	T& operator[](const int&) const;
+	int find(const T&) const;
+	void append(const T&);
+	void insert(const int &, const T&);
+	bool remove(const int&);
+	bool operator == (const SmarterArray<T>&) const;
 	
-	template <class T1> //Those of you working with xCode, don't use the same template name T. T1 is ok.
-	friend ostream& operator << (ostream&, const SmarterArray<T1>&); //Implemented for you
+	template <class T1>
+	friend ostream& operator << (ostream&, const SmarterArray<T1>&);
 };
 
 template <class T>
@@ -497,8 +491,8 @@ ostream& operator << (ostream& out, const SmarterArray<T>& L)
 
 struct Edge
 {
-	int desVertexIndex; //the index (in the underlying graph) of the destination vertex of this edge
-	double cost; //cost of an edge
+	int desVertexIndex;
+	double cost;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -506,33 +500,26 @@ struct Edge
 class Vertex
 {
 private:
-	CMPT135_String name; //Name of the city at the vertex
-	SmarterArray<Edge> E; //A container to store the edges emanating from this vertex. All the elements of 
-	         //E have the same origin vertex which is the this object. But they have different destination
-		     //vertices which are given by the desVertexIndex member variable of each element
+	Custom_String name;
+	SmarterArray<Edge> E;
 
 public:
-	Vertex(); //Assign name = "N/A" and initialize E to an empty container (default object E)
-	Vertex(const CMPT135_String &); //Assign name = the argument and initialize E to an empty container
-	CMPT135_String getName() const; //Return the name
-	SmarterArray<Edge> getEdgeSet() const; //Return E
-	int getEdgeSetSize() const; //Return the size of E
-	Edge getEdge(const int & desVertexIndex) const; //Assert an edge whose destination vertex index is 
-										        //equal to the argument is found in E. Then return the edge
-	double getEdgeCost(const int &desVertexIndex) const; //Assert an edge whose destination vertex index 
-					                        //is equal to the argument is found in E. Then return its cost
-	void appendEdge(const int &desVertexIndex, const double &cost); //Assert there is no element of E 
-				//whose destination vertex index and cost are equal to the argument values. Then append
-				//a new element whose destination vertex index and cost are initialized with the
-				//argument values to E
-	friend ostream& operator << (ostream &, const Vertex &); //Implemented for you
+	Vertex();
+	Vertex(const Custom_String &);
+	Custom_String getName() const;
+	SmarterArray<Edge> getEdgeSet() const;
+	int getEdgeSetSize() const;
+	Edge getEdge(const int & desVertexIndex) const;
+	double getEdgeCost(const int &desVertexIndex) const;
+	void appendEdge(const int &desVertexIndex, const double &cost);
+	friend ostream& operator << (ostream &, const Vertex &);
 };
 
 Vertex::Vertex(): name("N/A"), E() {}
 
-Vertex::Vertex(const CMPT135_String &n): name(n), E() {}
+Vertex::Vertex(const Custom_String &n): name(n), E() {}
 
-CMPT135_String Vertex::getName() const
+Custom_String Vertex::getName() const
 {
 	return name;
 }
@@ -600,66 +587,18 @@ class Graph
 private:
 	SmarterArray<Vertex> V;
 public:
-	Graph();//Construct empty graph (default object V)
-	Graph(const char *); //Construct a graph from a text file whose path is given by the argument cstring.
-        //The input text file will consist a pair of cities and the cost to go from one to the other on  
-        //every line. The pair of cities and their cost can be separated by one or more SPACE, TAB, or EOL 
-        //(end of line) characters. It doesn't matter how many SPACEs, TABs, or EOLs are present. BUT 
-        //THAT THERE HAS TO BE AT LEAST ONE TAB or EOL CHARACTER between the pairs of cities and AT LEAST 
-        //ONE TAB or EOL between the second city and the cost. This is because the CMPT135_String class 
-        //uses TAB or EOL as a deliminator (separator or terminating character of input reading). This 
-        //means city names can be made up of one or more words separated by spaces. An example of one line
-        //of text in the input text file is:
-        //        New Westminster             Port Coquitlam        4.5
-        //In this example, there has to be at least one TAB or EOL character between "New Westminster" and 
-        //"Port Coquitlam" and at least one TAB or EOL character between "Port Coquitlam" and 4.5. Of 
-        //course there can be more than one TAB or EOL characters. The number of TAB or EOL characters 
-        //between the cities names and the second city and the cost is arbitrary and can be equal or 
-        //different. There can also be zero or more spaces as much as you like without causing any 
-        //problem. Moreover there can be as many empty lines as one likes anywhere in the input file and 
-        //these empty lines will not cause any problem thanks to the design of the istream friend function
-        //of the CMPT135_String class. In order to demonstrate such flexibility in the input text file, a 
-        //sample input text file (see the CMPT 135 2020-03 SYN Class Final Project: Connectivity Map 
-        //Large file) is provided to you together with this project. In the input file we arbitrarily put 
-        //useless empty lines here and there just to demonstrate the fact that our input text file will be
-        //read perfectly without any problem.
-        /*
-        Thus this function should perform the following tasks
-	Construct a non-default file input streaming object using the cstring argument file name
-	Assert the file is opened successfully
-	Declare two CMPT135_string data type variables named departure and destination
-	While EOF is not reached do
-•	Read city name. This is the departure city. (fin >> departure;)
-•	If departure city is empty CMPT135_String object, then break.
-•	Read city name. This is the destination city. (fin >> destination;)
-•	Read the cost (double data type)
-•	Append a new vertex whose name is the departure city and whose edge set is empty to the this object. You must use the appendVertex member function of this class (see below) to append appropriately.
-•	Append a new vertex whose name is the destination city and whose edge set is empty to the this object. You must use the appendVertex member function of this class to append appropriately.
-•	Append a new edge from the departure city to the destination city with a cost read in part (d) above to the this object. You must use the appendEdge member function of this class (see below) to append appropriately.
-•	Append a new edge from the destination city to the departure city with a cost read in part (d) above to the this object. You must use the appendEdge member function of this class (see below) to append appropriately.
-	Close the input file stream object and you are done.
-        */
-	SmarterArray<Vertex> getVertexSet() const; //Return V
-	int getVertexSetSize() const; //Return the number of elements of V
-	Vertex& operator[](const int &) const;//Assert the index argument and then return the element at index
-	int getVertexIndex(const CMPT135_String &) const; //Return the index of an element whose name matches														//the argument. If no such element is found, return -1
-													//Assertion should not be performed.
-	int getVertexIndex(const Vertex &) const; //Return the index of the element whose name matches the
-											//name of the vertex argument. If no such element is found, 
-											//return -1. Assertion should not be performed.
-	CMPT135_String getRandomVertexName() const; //Pick a vertex at random and return its name
-	void appendVertex(const Vertex &); //Append the argument only if no such vertex already exists in the 
-									    // calling object. If same name vertex already exists then do nothing 
-										//and return. Assertion should not be performed.
-	void appendVertex(const CMPT135_String &); //Append a new vertex with the given name and empty E only 
-				           //if no such vertex already exists in the calling object. If same name vertex 
-							//already exists then do nothing and return. Assertion should not be performed.
-
-	void appendEdge(const CMPT135_String &dep, const CMPT135_String &des, const double &cost); //Assert 
-//two vertices whose names match the arguments exist. Then append an edge to the vertex whose name matches
-//the dep argument. The destination vertex index of the edge must be set to the index of the vertex whose 
-//name matches des and its cost must be set to the cost argument
-	friend ostream& operator << (ostream &, const Graph &); //Implemented for you
+	Graph();
+	Graph(const char *);
+	SmarterArray<Vertex> getVertexSet() const;
+	int getVertexSetSize() const;
+	Vertex& operator[](const int &) const;
+	int getVertexIndex(const Custom_String &) const;
+	int getVertexIndex(const Vertex &) const;
+	Custom_String getRandomVertexName() const;
+	void appendVertex(const Vertex &);
+	void appendVertex(const Custom_String &);
+	void appendEdge(const Custom_String &dep, const Custom_String &des, const double &cost);
+	friend ostream& operator << (ostream &, const Graph &);
 };
 
 Graph::Graph(): V() {}
@@ -673,7 +612,7 @@ Graph::Graph(const char *path)
 		assert(fin.fail());
 	}
 
-	CMPT135_String departure, destination;
+	Custom_String departure, destination;
 	double cost;
 	while(!fin.eof())
 	{
@@ -712,7 +651,7 @@ Vertex& Graph::operator[](const int &index) const
 	return V[index];
 }
 
-int Graph::getVertexIndex(const CMPT135_String &name) const
+int Graph::getVertexIndex(const Custom_String &name) const
 {
 	for (int i = 0; i < V.getSize(); i++)
 	{
@@ -734,7 +673,7 @@ int Graph::getVertexIndex(const Vertex &v1) const
 	return -1;
 }
 
-CMPT135_String Graph::getRandomVertexName() const
+Custom_String Graph::getRandomVertexName() const
 {
 	int randNumber = rand() % V.getSize();
 
@@ -752,7 +691,7 @@ void Graph::appendVertex(const Vertex &v1)
 	V.append(v1);
 }
 
-void Graph::appendVertex(const CMPT135_String &name)
+void Graph::appendVertex(const Custom_String &name)
 {
 	for (int i = 0; i < V.getSize(); i++)
 	{
@@ -764,7 +703,7 @@ void Graph::appendVertex(const CMPT135_String &name)
 	V.append(v1);
 }
 
-void Graph::appendEdge(const CMPT135_String &dep, const CMPT135_String &des, const double &cost)
+void Graph::appendEdge(const Custom_String &dep, const Custom_String &des, const double &cost)
 {
 	// We check if both dep and des are available in the graph
 	bool check = false; // by default we say dep is not available in the graph
@@ -845,30 +784,17 @@ ostream& operator << (ostream &out, const Graph &g)
 class Path
 {
 private:
-	SmarterArray<CMPT135_String> P; //The names of the vertices along the path
+	SmarterArray<Custom_String> P;
 public:
-	Path(); //Construct an empty path. Default object P.
-	int length() const; //Return the number of vertices along the path (the number of elements of P)
-	int find(const CMPT135_String &) const; //Return the index of an element of P whose name matches the 
-											//argument. If no element satisfies the condition, then return -1
-											//Do not perform assertion operation.
-	double computePathCost(const Graph &) const; //Compute the sum of the costs of edges along this path 
-		//given the underlying Graph argument. Remember that the path object stores only city names. Thus 
-       //you need the underlying graph argument to determine the vertices in the graph that belong to the 
-       //cities. Then you will be able to find the edges that connect the vertices which will enable you to 
-       //get the costs of the edges. The sum of the costs of these edges is returned from this function. If 
-       //during the computation of the path cost, you find that there is no any edge in the underlying graph
-       //that connects successive elements in P, then it means your path is an invalid path and you
-       //need to abort your application.
-	CMPT135_String& operator [] (const int &) const; //Assert index is valid and then return the 
-											//element of P at the given index
-	void append(const CMPT135_String &); //Append the argument to the calling object. No need to assert.
-	void insert(const int &index, const CMPT135_String &); //Assert the condition index >= 0 && 
-											//index <= the length and then insert the CMPT135_String argument 
-											//at the specified index. If index is equal to the length, then 
-											//perform append.
-	void remove(const int &); //Assert the index argument and then remove the element at the specified index
-	friend ostream& operator << (ostream &, const Path &); //Implemented for you.
+	Path();
+	int length() const;
+	int find(const Custom_String &) const;
+	double computePathCost(const Graph &) const;
+	Custom_String& operator [] (const int &) const;
+	void append(const Custom_String &);
+	void insert(const int &index, const Custom_String &);
+	void remove(const int &);
+	friend ostream& operator << (ostream &, const Path &);
 };
 
 Path::Path(): P() {}
@@ -878,7 +804,7 @@ int Path::length() const
 	return P.getSize();
 }
 
-int Path::find(const CMPT135_String &name) const
+int Path::find(const Custom_String &name) const
 {
 	for (int i = 0; i < P.getSize(); i++)
 	{
@@ -920,19 +846,19 @@ double Path::computePathCost(const Graph &g) const
 	return totalCost;
 }
 
-CMPT135_String& Path::operator [] (const int &index) const
+Custom_String& Path::operator [] (const int &index) const
 {
 	assert(index >= 0 && index < P.getSize());
 
 	return P[index];
 }
 
-void Path::append(const CMPT135_String &name)
+void Path::append(const Custom_String &name)
 {
 	P.append(name);
 }
 
-void Path::insert(const int &index, const CMPT135_String &name)
+void Path::insert(const int &index, const Custom_String &name)
 {
 	assert(index >= 0 && index <= P.getSize());
 
@@ -940,7 +866,7 @@ void Path::insert(const int &index, const CMPT135_String &name)
 		P.append(name);
 	else
 	{
-		CMPT135_String *temp = new CMPT135_String [P.getSize() + 1];
+		Custom_String *temp = new Custom_String [P.getSize() + 1];
 
 		int i = 0;
 		for (; i < index; i++)
@@ -981,7 +907,7 @@ ostream& operator << (ostream &out, const Path &path)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Path computeMinCostPath(const Graph &g, const CMPT135_String &departure, const CMPT135_String &destination, Path &currentPath = Path())
+Path computeMinCostPath(const Graph &g, const Custom_String &departure, const Custom_String &destination, Path &currentPath = Path())
 {
 	assert(g.getVertexSetSize() >= 1);
 
@@ -1014,7 +940,7 @@ Path computeMinCostPath(const Graph &g, const CMPT135_String &departure, const C
 		for (int i = 0; i < E.getSize(); i++)
 		{
 			Vertex nextVertex = g[E[i].desVertexIndex];
-			CMPT135_String nextVertexName = nextVertex.getName();
+			Custom_String nextVertexName = nextVertex.getName();
 
 			if (currentPath.find(nextVertexName) != -1)
 				continue;
@@ -1055,8 +981,8 @@ int main()
 	cout << "Graph constructed successfully." << endl;
 	cout << g << endl;
 
-	CMPT135_String departure = g.getRandomVertexName();
-	CMPT135_String destination = g.getRandomVertexName();
+	Custom_String departure = g.getRandomVertexName();
+	Custom_String destination = g.getRandomVertexName();
 	cout << "Computing shortest path from " << departure << " to " << destination << endl;
 	Path minCostPath = computeMinCostPath(g, departure, destination);
 	cout << endl;
